@@ -29,6 +29,19 @@ class PostService {
         request(new_url, method: settings.submitMethod, callback: callback)
     }
     
+    func submitVote(callback:(AnyObject)->(), voteType:Int, postID:Int){
+        var new_url = ""
+        if (voteType == 1) {
+            new_url += settings.upVoteURL
+        }
+        else if (voteType == 2){
+            new_url += settings.downVoteURL
+        }
+        new_url += String(postID)
+        
+        request(new_url, method: settings.voteMethod, callback: callback)
+    }
+    
     
     
     func request(url:String, method:String, callback:(AnyObject) -> ()){

@@ -14,4 +14,11 @@ class Settings{
     
     var submitURL = "http://apii.herokuapp.com/posts/submit?device_id=1&auth_key=wvuR3vuCtr"
     var submitMethod = "post"
+    
+    
+    var upVoteURL = "http://apii.herokuapp.com/posts/up/"
+    
+    var downVoteURL = "http://apii.herokuapp.com/posts/down/"
+    
+    var voteMethod = "post"
 }

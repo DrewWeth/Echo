@@ -13,11 +13,14 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var detailCreatedLabel: UILabel!
     
+    
     @IBOutlet weak var upsText: UILabel!
     @IBOutlet weak var viewsText: UILabel!
     @IBOutlet weak var downsText: UILabel!
     
-
+    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+    
+    
     var detailItem: Post? {
         didSet {
             // Update the view.
@@ -60,6 +63,33 @@ class DetailViewController: UIViewController {
             }
         }
     }
+    
+    func addNew(post:NSDictionary)
+    {
+        println(post)
+        
+    }
+    
+    @IBAction func upvote(sender: AnyObject) {
+        self.appDelegate.service.submitVote({
+            (response) in
+            self.addNew(response as NSDictionary)
+            }, voteType: 1, postID: self.detailItem!.id)
+        self.detailItem?.ups += 1
+        
+        
+        
+    }
+    
+    @IBAction func downvote(sender: AnyObject) {
+        self.appDelegate.service.submitVote({
+            (response) in
+            self.addNew(response as NSDictionary)
+            }, voteType: 2, postID: self.detailItem!.id)
+        self.detailItem!.downs += 1
+    
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,9 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
     var coreLocationController:CoreLocationController?
+    var service:PostService!
 
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.coreLocationController = CoreLocationController()
+        self.service = PostService()
+
         
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as UISplitViewController

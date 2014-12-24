@@ -13,7 +13,6 @@ class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController? = nil
     var postsCollection = [Post]()
 
-    var service:PostService!
     let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
     var is_loading = false
 
@@ -50,10 +49,9 @@ class MasterViewController: UITableViewController {
             self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
         }
         
-        service = PostService()
         // return of the closure-- idk wtf that means tho
         println("Getting posts")
-        service.getPosts ({
+        self.appDelegate.service.getPosts ({
             (response) in
             self.loadPosts(response as NSArray)
             }, latitude: "37.5016981", longitude: "-91.3991102", last:"2014-12-23T22:53:20.963Z")
@@ -94,7 +92,7 @@ class MasterViewController: UITableViewController {
                 if (self.appDelegate.getLocationController().currentLocation != nil)
                 {
                 
-                    self.service.submitPost({
+                    self.appDelegate.service.submitPost({
                         (response) in
                         self.addNew(response as NSDictionary)
                         }, content:textField.text, latitude: self.appDelegate.getLocationController().getCurrentLatitude(), longitude: self.appDelegate.getLocationController().getCurrentLongitude())
@@ -137,7 +135,7 @@ class MasterViewController: UITableViewController {
             {
                 println("Load more stuff here...")
                 
-                self.service.getPosts ({
+                self.appDelegate.service.getPosts ({
                     (response) in
                     self.loadPosts(response as NSArray)
                     }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), last: self.postsCollection.last!.created)
@@ -157,7 +155,7 @@ class MasterViewController: UITableViewController {
             if (self.postsCollection.last != nil){
                 last_string = self.postsCollection.last!.created
             }
-            self.service.getPosts ({
+            self.appDelegate.service.getPosts ({
                 (response) in
                 self.loadPosts(response as NSArray)
                 }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), last:last_string)

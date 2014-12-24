@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/MasterViewController.swift"
-            timestampString = "441113367.776644"
+            timestampString = "441117108.829829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "refreshTable()"
             landmarkType = "5">
          </BreakpointContent>
