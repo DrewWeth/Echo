@@ -95,7 +95,7 @@ class MasterViewController: UITableViewController {
                     self.appDelegate.service.submitPost({
                         (response) in
                         self.addNew(response as NSDictionary)
-                        }, content:textField.text, latitude: self.appDelegate.getLocationController().getCurrentLatitude(), longitude: self.appDelegate.getLocationController().getCurrentLongitude())
+                        }, content:textField.text, latitude: self.appDelegate.getLocationController().getCurrentLatitude(), longitude: self.appDelegate.getLocationController().getCurrentLongitude(), device_id: self.appDelegate.device.data[0] as String, auth_key: self.appDelegate.device.data[1] as String)
                     
                     self.postsCollection.insert(postObj, atIndex:0)
                     self.tableView.reloadData()
@@ -129,16 +129,17 @@ class MasterViewController: UITableViewController {
         //println("\(currentOffset), \(maximumOffset), \(maximumOffset - currentOffset)")
         
         // Change 10.0 to adjust the distance from bottom
-        if (maximumOffset > 0 && maximumOffset - currentOffset == 0.0) {
-        
-            if (appDelegate.getLocationController().currentLocation != nil)
+        if (maximumOffset > 0 && maximumOffset - currentOffset < 100.0) {
+            if (self.is_loading == false)
             {
-                println("Load more stuff here...")
-                
-                self.appDelegate.service.getPosts ({
-                    (response) in
-                    self.loadPosts(response as NSArray)
-                    }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), last: self.postsCollection.last!.created)
+                self.is_loading = true
+                if (appDelegate.getLocationController().currentLocation != nil)
+                {
+                    self.appDelegate.service.getPosts ({
+                        (response) in
+                        self.loadPosts(response as NSArray)
+                        }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), last: self.postsCollection.last!.created)
+                }
             }
         }
         
@@ -195,6 +196,7 @@ class MasterViewController: UITableViewController {
             // we could be inside a closure, possible to not be in main thread.
             dispatch_async(dispatch_get_main_queue()){
                 self.tableView.reloadData()
+                self.is_loading = false
             }
         }
     }

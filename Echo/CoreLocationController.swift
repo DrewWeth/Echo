@@ -16,8 +16,9 @@ class CoreLocationController : NSObject, CLLocationManagerDelegate{
     override init() {
         super.init()
         self.locationManager.delegate = self
-        self.locationManager.distanceFilter  = 2000 // Must move at least 3km
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        self.locationManager.distanceFilter  = 1000 // Must move at least 3km
+//        self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation() // why wont this work
     }

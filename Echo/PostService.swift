@@ -23,8 +23,8 @@ class PostService {
         request(url_string, method: settings.PostsMethod, callback: callback)
     }
     
-    func submitPost(callback:(AnyObject) -> (), content:String, latitude:String, longitude:String) {
-        var new_url = settings.submitURL + "&content=" + content.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "&latitude=" + latitude + "&longitude=" + longitude
+    func submitPost(callback:(AnyObject) -> (), content:String, latitude:String, longitude:String, device_id:String, auth_key:String) {
+        var new_url = settings.submitURL + "&content=" + content.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "&latitude=" + latitude + "&longitude=" + longitude + "&device_id=" + device_id + "&auth_key=" + auth_key
         println(new_url)
         request(new_url, method: settings.submitMethod, callback: callback)
     }
@@ -42,6 +42,9 @@ class PostService {
         request(new_url, method: settings.voteMethod, callback: callback)
     }
     
+    func submitRegistration(callback:(AnyObject)->()) {
+        request(settings.registerURL, method: settings.registerMethod, callback:callback)
+    }
     
     
     func request(url:String, method:String, callback:(AnyObject) -> ()){

@@ -76,6 +76,7 @@ class DetailViewController: UIViewController {
             self.addNew(response as NSDictionary)
             }, voteType: 1, postID: self.detailItem!.id)
         self.detailItem?.ups += 1
+        self.upsText.text = String(self.detailItem!.ups)
         
         
         
@@ -87,7 +88,8 @@ class DetailViewController: UIViewController {
             self.addNew(response as NSDictionary)
             }, voteType: 2, postID: self.detailItem!.id)
         self.detailItem!.downs += 1
-    
+        self.downsText.text = String(self.detailItem!.downs)
+        
     }
 
 

@@ -12,13 +12,14 @@ class Settings{
     var PostsURL = "http://apii.herokuapp.com/posts/nearby?latitude=38.5016981&longitude=-90.3991102"
     var PostsMethod = "get"
     
-    var submitURL = "http://apii.herokuapp.com/posts/submit?device_id=1&auth_key=wvuR3vuCtr"
+    var submitURL = "http://apii.herokuapp.com/posts/submit?"
     var submitMethod = "post"
     
-    
+    // Voting API 
     var upVoteURL = "http://apii.herokuapp.com/posts/up/"
-    
     var downVoteURL = "http://apii.herokuapp.com/posts/down/"
-    
     var voteMethod = "post"
+    
+    var registerURL = "http://apii.herokuapp.com/devices/register"
+    var registerMethod = "post"
 }

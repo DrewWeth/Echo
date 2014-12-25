@@ -14,14 +14,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var window: UIWindow?
     var coreLocationController:CoreLocationController?
     var service:PostService!
+    var device:Device!
 
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.coreLocationController = CoreLocationController()
         self.service = PostService()
+        self.device = Device()
+        println("device count \(self.device.data.count)")
 
-        
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
