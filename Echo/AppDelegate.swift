@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Parse
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -15,15 +17,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var coreLocationController:CoreLocationController?
     var service:PostService!
     var device:Device!
-
+    var masterController:MasterViewController!
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.coreLocationController = CoreLocationController()
         self.service = PostService()
-        self.device = Device()
+        
+        
+        // Register parse
+        Parse.setApplicationId("Q5N1wgUAJKrEbspM7Q2PBv32JbTPt5TQpmstic8D", clientKey: "rUpIZ6rJl3FMe69GqIxNnTK6mMSUlx0AA2OPAej8")
+        var types: UIUserNotificationType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
+        var settings = UIUserNotificationSettings(forTypes: types, categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        
+        
+        
+//        self.device = Device()
+        self.device = Device(device_token_from_parse: PFInstallation.currentInstallation().objectId)
         println("device count \(self.device.data.count)")
 
+        
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
@@ -32,6 +47,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         return true
     }
 
+    func application(application:UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken:NSData) {
+    
+        // Store the deviceToken in the current installation and save it to Parse.
+        var currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.setDeviceTokenFromData(deviceToken)
+        println("Device token for parse: \(currentInstallation.deviceToken)")
+        currentInstallation.saveInBackgroundWithBlock{
+        (succ, error) in
+            if (!succ){
+                println("Got currentInstallation error bro")
+                println(error)
+            }
+            
+        }
+    }
+    
+    func application(application:UIApplication, didReceiveRemoteNotification userInfo:NSDictionary){
+            PFPush.handlePush(userInfo)
+    }
+    
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        println("DELEGATE: failed to register for remote notifications:  (error)")
+        println(error)
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        println("didReceiveRemoteNotification")
+        PFPush.handlePush(userInfo)
+    }
+    
+    func application(application: UIApplication!, didReceiveRemoteNotification userInfo: NSDictionary!){
+        PFPush.handlePush(userInfo)
+    }
+    
+    
     func getLocationController() -> CoreLocationController{
         return self.coreLocationController!
     }

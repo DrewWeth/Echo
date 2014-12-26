@@ -23,14 +23,20 @@ class MasterViewController: UITableViewController {
             self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
         }
     }
+    
+    
 
+    
+    
     override func viewDidLoad() {
+
         super.viewDidLoad()
-        
+
+        appDelegate.masterController = self
         var bgView = UIImageView(image: UIImage(named:"background.jpg"))
         bgView.contentMode = .ScaleAspectFill
         
-        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         visualEffectView.frame = bgView.bounds
         
         bgView.addSubview(visualEffectView)
@@ -68,57 +74,18 @@ class MasterViewController: UITableViewController {
 //        self.postsCollection = [Post(id:1, content:"Just saw the cutest shoes ever", ups:2, downs:1, views: 10, created:"Dec 22, 2014 at 2:15AM"),Post(id:1, content:"Becky is a bitchhh :S", ups:72, downs:4, views: 126, created:"Dec 22, 2014 at 1:15AM"),Post(id:1, content:"Sports are cool kcjls ns dc  jc sj,hbdjn sbdjhbs", ups:304378, downs:-1, views: 304378, created:"Dec 22, 2014 at 2:15AM"),Post(id:1, content:"Music heals <3", ups:440, downs:46, views: 1046, created:"Dec 22, 2014 at 2:15AM")]
     }
     
-    @IBAction func addName(sender: AnyObject) {
+    func submitTransition(Sender: UIButton!) {
+        let submitView:SubmitViewController = SubmitViewController()
         
-        var alert = UIAlertController(title: "Echo",
-            message: "Post your Echo!",
-            preferredStyle: .Alert)
-        
-        let saveAction = UIAlertAction(title: "Publish",
-            style: .Default) { (action: UIAlertAction!) -> Void in
-                
-            let textField = alert.textFields![0] as UITextField
-            
-            if (textField.text != ""){
-                
-                
-                // makes local copy -- just for nice-ity
-                var postObj = Post(id: 0, content: textField.text, ups:0, downs:0, views:0, created:"2014-12-23T22:53:20.963Z")
-                
-                // Submits post to apii
-                
-                
-                
-                if (self.appDelegate.getLocationController().currentLocation != nil)
-                {
-                
-                    self.appDelegate.service.submitPost({
-                        (response) in
-                        self.addNew(response as NSDictionary)
-                        }, content:textField.text, latitude: self.appDelegate.getLocationController().getCurrentLatitude(), longitude: self.appDelegate.getLocationController().getCurrentLongitude(), device_id: self.appDelegate.device.data[0] as String, auth_key: self.appDelegate.device.data[1] as String)
-                    
-                    self.postsCollection.insert(postObj, atIndex:0)
-                    self.tableView.reloadData()
-                }
-            }
-        }
-        
-        let cancelAction = UIAlertAction(title: "Back",
-            style: .Cancel) { (action: UIAlertAction!) -> Void in
-        }
-        
-        alert.addTextFieldWithConfigurationHandler {
-            (textField: UITextField!) -> Void in
-        }
-        
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        
-        presentViewController(alert,
-            animated: true,
-            completion: nil)
+        self.presentViewController(submitView, animated: true, completion: nil)
         
     }
+    
+    func addPost(post:Post)
+    {
+        self.postsCollection.insert(post, atIndex:0)
+    }
+
     
     override func scrollViewDidScroll(scroll:UIScrollView){
         
@@ -200,6 +167,7 @@ class MasterViewController: UITableViewController {
             }
         }
     }
+    
  
 
     override func didReceiveMemoryWarning() {
@@ -222,6 +190,8 @@ class MasterViewController: UITableViewController {
         }
     }
 
+    
+    
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

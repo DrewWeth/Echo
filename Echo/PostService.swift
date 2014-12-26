@@ -42,8 +42,8 @@ class PostService {
         request(new_url, method: settings.voteMethod, callback: callback)
     }
     
-    func submitRegistration(callback:(AnyObject)->()) {
-        request(settings.registerURL, method: settings.registerMethod, callback:callback)
+    func submitRegistration(callback:(AnyObject)->(), parse_token:String) {
+        request(settings.registerURL + "?parse_token=" + parse_token, method: settings.registerMethod, callback:callback)
     }
     
     

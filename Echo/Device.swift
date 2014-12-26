@@ -15,20 +15,22 @@ class Device : NSObject {
     let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
 
     
-    override init(){
+    
+    init(device_token_from_parse:String){
         super.init() // So I can call functions
         self.data = NSMutableArray()
         self.loadData()
-        println(self.data)
+        println("Printing device array: \(self.data)")
         if (self.data.count == 0){
             println("Device not registered. Now registering")
-            registerDevice()
+            registerDevice(device_token_from_parse)
         }
         else
         {
-            println("device_id: \(data[0]) \(data[1])")
+            println(self.data)
         }
     }
+    
     
     // Load data
     func loadData(){
@@ -44,8 +46,15 @@ class Device : NSObject {
             // If it doesn't, copy it from the default file in the Resources folder
             self.saveData()
         }
+        
         self.data = NSMutableArray(contentsOfFile: path)
+        
+        // DEVELOPMENT: Reset Mylist.plist
+//                self.data = []
+//                self.saveData()
     }
+    
+    
     
     func transferData(response:NSDictionary){
         var id = String((response["id"] as Int))
@@ -56,11 +65,11 @@ class Device : NSObject {
         self.saveData()
     }
     
-    func registerDevice(){
-        appDelegate.service.submitRegistration {
+    func registerDevice(parse_token:String){
+        appDelegate.service.submitRegistration({
             (response) in
             self.transferData(response as NSDictionary)
-        }
+        }, parse_token:parse_token)
     }
 
     
