@@ -8,11 +8,14 @@
 
 import Foundation
 import CoreLocation
+import UIKit
+
 
 class CoreLocationController : NSObject, CLLocationManagerDelegate{
     var locationManager:CLLocationManager = CLLocationManager()
     var currentLocation:CLLocationCoordinate2D!
-    
+    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+
     override init() {
         super.init()
         self.locationManager.delegate = self
@@ -21,6 +24,17 @@ class CoreLocationController : NSObject, CLLocationManagerDelegate{
         self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation() // why wont this work
+        
+//        self.getInitPosts()
+    }
+    
+    func getInitPosts(){
+        println("Getting posts")
+        self.appDelegate.service.getPosts ({
+            (response) in
+            self.appDelegate.masterController.loadPosts(response as NSArray)
+            }, latitude: self.getCurrentLatitude(), longitude: self.getCurrentLongitude(), last:"")
+
     }
     
     func getCurrentLatitude() -> String{
@@ -34,6 +48,7 @@ class CoreLocationController : NSObject, CLLocationManagerDelegate{
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         self.currentLocation = manager.location.coordinate
         println("locations = \(self.currentLocation.latitude) \(self.currentLocation.longitude)")
+        getInitPosts()
     }
     
     

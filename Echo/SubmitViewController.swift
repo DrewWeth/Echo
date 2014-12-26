@@ -58,12 +58,10 @@ class SubmitViewController :UIViewController {
         }
     }
     
-    @IBAction func cancelView(sender: AnyObject) {
-        println("CANCEL!")
-        navigationController?.popToRootViewControllerAnimated(true)
-    
-    }
 
+    @IBAction func backSwipe(sender: AnyObject) {
+        navigationController?.popToRootViewControllerAnimated(true)
+    }
 
     func addNew(post:NSDictionary)
     {

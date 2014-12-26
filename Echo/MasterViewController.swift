@@ -36,7 +36,7 @@ class MasterViewController: UITableViewController {
         var bgView = UIImageView(image: UIImage(named:"background.jpg"))
         bgView.contentMode = .ScaleAspectFill
         
-        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
         visualEffectView.frame = bgView.bounds
         
         bgView.addSubview(visualEffectView)
@@ -55,12 +55,6 @@ class MasterViewController: UITableViewController {
             self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
         }
         
-        // return of the closure-- idk wtf that means tho
-        println("Getting posts")
-        self.appDelegate.service.getPosts ({
-            (response) in
-            self.loadPosts(response as NSArray)
-            }, latitude: "37.5016981", longitude: "-91.3991102", last:"2014-12-23T22:53:20.963Z")
         
         self.refreshControl?.tintColor = UIColor.whiteColor()
         
@@ -179,7 +173,8 @@ class MasterViewController: UITableViewController {
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "Cell" {
+            
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let object = postsCollection[indexPath.row]
                 let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
@@ -188,6 +183,7 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
+        
     }
 
     
@@ -203,10 +199,16 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-
+        let cell:PostCell = tableView.dequeueReusableCellWithIdentifier("Cell") as PostCell
+        
+        
         let post = postsCollection[indexPath.row]
-        cell.textLabel.text = post.content
+        cell.setCell(post.content, ups:post.ups, downs:post.downs, rating:post.views)
+        
+        cell.upvote.tag = indexPath.row as Int
+        cell.downvote.tag = indexPath.row as Int
+        
+        
         return cell
     }
 
@@ -222,6 +224,34 @@ class MasterViewController: UITableViewController {
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
+    }
+    
+    
+    @IBAction func upvote(sender: AnyObject) {
+        
+        
+        self.appDelegate.service.submitVote({
+            (response) in
+            self.addNew(response as NSDictionary)
+            }, voteType: 1, postID: self.postsCollection[sender.tag].id)
+    
+        
+        self.postsCollection[sender.tag].ups += 1
+        var paths = NSIndexPath(forRow:sender.tag, inSection: 0)
+        self.tableView.reloadRowsAtIndexPaths([paths], withRowAnimation: .Fade)
+    }
+    
+    @IBAction func downvote(sender: AnyObject) {
+        
+        self.appDelegate.service.submitVote({
+            (response) in
+            self.addNew(response as NSDictionary)
+            }, voteType: 2, postID: self.postsCollection[sender.tag].id)
+        
+        
+        self.postsCollection[sender.tag].downs += 1
+        var paths = NSIndexPath(forRow:sender.tag, inSection: 0)
+        self.tableView.reloadRowsAtIndexPaths([paths], withRowAnimation: .Fade)
     }
 
 

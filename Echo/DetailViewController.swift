@@ -68,6 +68,11 @@ class DetailViewController: UIViewController {
     {
         println(post)
         
+        
+    }
+    
+    
+    @IBAction func unwindToMyController(segue: UIStoryboardSegue) {
     }
     
     @IBAction func upvote(sender: AnyObject) {
@@ -78,7 +83,9 @@ class DetailViewController: UIViewController {
         self.detailItem?.ups += 1
         self.upsText.text = String(self.detailItem!.ups)
         
-        
+        dispatch_async(dispatch_get_main_queue()){
+            self.appDelegate.masterController.tableView.reloadData()
+        }
         
     }
     
@@ -89,7 +96,10 @@ class DetailViewController: UIViewController {
             }, voteType: 2, postID: self.detailItem!.id)
         self.detailItem!.downs += 1
         self.downsText.text = String(self.detailItem!.downs)
-        
+     
+        dispatch_async(dispatch_get_main_queue()){
+            self.appDelegate.masterController.tableView.reloadData()
+        }
     }
 
 

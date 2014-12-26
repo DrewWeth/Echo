@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FE02439D1A4BC05700031AEF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE02439C1A4BC05700031AEF /* Device.swift */; };
+		FE0810F01A4D08FA00BC2F09 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0810EF1A4D08FA00BC2F09 /* PostCell.swift */; };
+		FE0810F21A4D37CF00BC2F09 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0810F11A4D37CF00BC2F09 /* SettingsViewController.swift */; };
 		FE56C11A1A4A5FFB004BFEDA /* CoreLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE56C1191A4A5FFB004BFEDA /* CoreLocationController.swift */; };
 		FE76E6B61A4ABF1F0010850B /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE76E6B51A4ABF1F0010850B /* background.jpg */; };
 		FE76E6B81A4AC58B0010850B /* background2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE76E6B71A4AC58B0010850B /* background2.jpg */; };
@@ -53,6 +55,8 @@
 
 /* Begin PBXFileReference section */
 		FE02439C1A4BC05700031AEF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		FE0810EF1A4D08FA00BC2F09 /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		FE0810F11A4D37CF00BC2F09 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FE56C1191A4A5FFB004BFEDA /* CoreLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreLocationController.swift; sourceTree = "<group>"; };
 		FE76E6B51A4ABF1F0010850B /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		FE76E6B71A4AC58B0010850B /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background2.jpg; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 				FE9B0EEE1A47EB31008BA5F5 /* Settings.swift */,
 				FE02439C1A4BC05700031AEF /* Device.swift */,
 				FE8220E01A4CDE4F0043CB1B /* SubmitViewController.swift */,
+				FE0810EF1A4D08FA00BC2F09 /* PostCell.swift */,
+				FE0810F11A4D37CF00BC2F09 /* SettingsViewController.swift */,
 			);
 			path = Echo;
 			sourceTree = "<group>";
@@ -321,6 +327,7 @@
 			files = (
 				FE9B0EEF1A47EB31008BA5F5 /* Settings.swift in Sources */,
 				FE9B0EED1A47E9F0008BA5F5 /* PostService.swift in Sources */,
+				FE0810F21A4D37CF00BC2F09 /* SettingsViewController.swift in Sources */,
 				FE9B0ECD1A47E9D6008BA5F5 /* DetailViewController.swift in Sources */,
 				FE9B0ECB1A47E9D6008BA5F5 /* MasterViewController.swift in Sources */,
 				FE8220E11A4CDE4F0043CB1B /* SubmitViewController.swift in Sources */,
@@ -328,6 +335,7 @@
 				FE9B0EC91A47E9D6008BA5F5 /* AppDelegate.swift in Sources */,
 				FE9B0EEB1A47E9E3008BA5F5 /* Post.swift in Sources */,
 				FE02439D1A4BC05700031AEF /* Device.swift in Sources */,
+				FE0810F01A4D08FA00BC2F09 /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

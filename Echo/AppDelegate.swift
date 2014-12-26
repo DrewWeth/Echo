@@ -33,11 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         application.registerForRemoteNotifications()
         
         
-        
 //        self.device = Device()
         self.device = Device(device_token_from_parse: PFInstallation.currentInstallation().objectId)
         println("device count \(self.device.data.count)")
 
+        
         
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as UISplitViewController
