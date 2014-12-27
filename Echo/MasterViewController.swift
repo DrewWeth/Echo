@@ -26,8 +26,6 @@ class MasterViewController: UITableViewController {
     
     
 
-    
-    
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -75,8 +73,7 @@ class MasterViewController: UITableViewController {
         
     }
     
-    func addPost(post:Post)
-    {
+    func addPost(post:Post) {
         self.postsCollection.insert(post, atIndex:0)
     }
 
@@ -90,7 +87,9 @@ class MasterViewController: UITableViewController {
         //println("\(currentOffset), \(maximumOffset), \(maximumOffset - currentOffset)")
         
         // Change 10.0 to adjust the distance from bottom
-        if (maximumOffset > 0 && maximumOffset - currentOffset < 100.0) {
+        if (maximumOffset > UIScreen.mainScreen().bounds.height && maximumOffset - currentOffset < 100.0) {
+            println("Has scrolled far enough to load more posts")
+            
             if (self.is_loading == false)
             {
                 self.is_loading = true
@@ -124,7 +123,7 @@ class MasterViewController: UITableViewController {
         }
         else
         {
-            var error = Post(id:0, content:"GPS isn't working :(", ups:0, downs:0, views:0,  created:"2014-12-23T22:53:20.963Z")
+            var error = Post(id:0, content:"GPS isn't working :(", ups:0, downs:0, views:0,  created:"2014-12-23T22:53:20.963Z", profile:"")
             self.postsCollection.append(error)
         }
         tableView.reloadData()
@@ -140,25 +139,28 @@ class MasterViewController: UITableViewController {
     
     // Takes an array of posts, makes objects of them, and appends them to postsCollections. Then reloads the data table.
     func loadPosts(posts:NSArray){
-        println("Number of posts: \(posts.count)")
+        println("Number of returned posts: \(posts.count)")
         if (posts.count > 0){
-            
-            for post in posts{
+            for postObj in posts{
+                println(postObj)
+                var post = postObj["post"] as NSDictionary
                 var id = post["id"] as Int
                 var content = post["content"] as String
                 var ups = post["ups"] as Int
                 var downs = post["downs"] as Int
                 var views = post["views"] as Int
                 var created = post["created_at"] as String
-                var postObj = Post(id: id, content: content, ups:ups, downs:downs, views:views, created:created)
+                var profile_url = postObj["profile_picture"] as String
+                
+                var postObj = Post(id: id, content: content, ups:ups, downs:downs, views:views, created:created, profile:profile_url as String)
                 postsCollection.append(postObj)
             }
-            
-            // we could be inside a closure, possible to not be in main thread.
-            dispatch_async(dispatch_get_main_queue()){
-                self.tableView.reloadData()
-                self.is_loading = false
-            }
+        }
+        
+        // we could be inside a closure, possible to not be in main thread.
+        dispatch_async(dispatch_get_main_queue()){
+            self.tableView.reloadData()
+            self.is_loading = false
         }
     }
     
@@ -171,7 +173,6 @@ class MasterViewController: UITableViewController {
 
 
     // MARK: - Segues
-
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Cell" {
             
@@ -203,7 +204,7 @@ class MasterViewController: UITableViewController {
         
         
         let post = postsCollection[indexPath.row]
-        cell.setCell(post.content, ups:post.ups, downs:post.downs, rating:post.views)
+        cell.setCell(post.content, ups:post.ups, downs:post.downs, rating:post.views, profile_url:post.profile_url)
         
         cell.upvote.tag = indexPath.row as Int
         cell.downvote.tag = indexPath.row as Int
@@ -228,7 +229,6 @@ class MasterViewController: UITableViewController {
     
     
     @IBAction func upvote(sender: AnyObject) {
-        
         
         self.appDelegate.service.submitVote({
             (response) in

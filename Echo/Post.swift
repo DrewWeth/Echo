@@ -16,14 +16,16 @@ public class Post{
     public var downs:Int
     public var views:Int
     public var created:String
+    public var profile_url:String
     
-    init(id:Int, content:String, ups:Int, downs:Int, views:Int, created:String){
+    init(id:Int, content:String, ups:Int, downs:Int, views:Int, created:String, profile:String){
         self.id = id
         self.content = content
         self.ups = ups
         self.downs = downs
         self.views = views
         self.created = created
+        self.profile_url = profile
     }
     
     func toJSON() -> String{

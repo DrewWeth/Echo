@@ -20,13 +20,13 @@ class Device : NSObject {
         super.init() // So I can call functions
         self.data = NSMutableArray()
         self.loadData()
-        println("Printing device array: \(self.data)")
         if (self.data.count == 0){
             println("Device not registered. Now registering")
             registerDevice(device_token_from_parse)
         }
         else
         {
+            println("Device is registered.")
             println(self.data)
         }
     }
@@ -53,6 +53,41 @@ class Device : NSObject {
 //                self.data = []
 //                self.saveData()
     }
+    
+    // Load data
+    func loadData(something:AnyObject, position:Int?){
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+        let documentsDirectory = paths.objectAtIndex(0)as NSString
+        let path = documentsDirectory.stringByAppendingPathComponent("MyFile.plist")
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        // Check if file exists
+        if(!fileManager.fileExistsAtPath(path))
+        {
+            // If it doesn't, copy it from the default file in the Resources folder
+            println("We've got problems. Check your overloaded loadData function in Device class")
+            self.saveData()
+        }
+        else
+        {
+            if (position != nil){
+                self.data[position!] = something
+            }
+            else{
+                self.data.addObject(something)
+            }
+            
+            self.saveData()
+        }
+        
+        self.data = NSMutableArray(contentsOfFile: path)
+        
+        // DEVELOPMENT: Reset Mylist.plist
+        //                self.data = []
+        //                self.saveData()
+    }
+    
     
     
     

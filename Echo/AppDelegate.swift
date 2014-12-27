@@ -10,6 +10,7 @@ import UIKit
 import Parse
 
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
@@ -18,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var service:PostService!
     var device:Device!
     var masterController:MasterViewController!
-    
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.coreLocationController = CoreLocationController()
@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         application.registerForRemoteNotifications()
         
         
+        
 //        self.device = Device()
         self.device = Device(device_token_from_parse: PFInstallation.currentInstallation().objectId)
         println("device count \(self.device.data.count)")
@@ -44,6 +45,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
+        
+        
+        let credProvider = AWSStaticCredentialsProvider(accessKey: "AKIAIZAKROOE6V7SRJHA", secretKey: "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")
+        let defaultServiceConfig = AWSServiceConfiguration(region: AWSRegionType.USWest2, credentialsProvider: credProvider)
+        AWSServiceManager.defaultServiceManager().setDefaultServiceConfiguration(defaultServiceConfig)
+        
+//        let dDB = AWSDynamoDB.defaultDynamoDB()
+//        let list = AWSDynamoDBListTablesInput()
+//        dDB.listTables(list).continueWithBlock({
+//            (task: BFTask!) -> AnyObject! in
+//            let listOutput = task.result as AWSDynamoDBListTablesOutput
+//            println("printing table names")
+//            for tableName : AnyObject in listOutput.tableNames{
+//                println("\(tableName)")
+//            }
+//            return nil
+//            
+//        })
+        
         return true
     }
 
@@ -61,6 +81,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
             
         }
+    }
+    
+    
+    func randomStringWithLength (len : Int) -> NSString {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        
+        var randomString : NSMutableString = NSMutableString(capacity: len)
+        
+        for (var i=0; i < len; i++){
+            var length = UInt32 (letters.length)
+            var rand = arc4random_uniform(length)
+            randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
+        }
+        
+        return randomString
     }
     
     func application(application:UIApplication, didReceiveRemoteNotification userInfo:NSDictionary){

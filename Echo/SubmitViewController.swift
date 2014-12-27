@@ -32,7 +32,7 @@ class SubmitViewController :UIViewController {
             
             
             // makes local copy -- just for nice-ity
-            var postObj = Post(id: 0, content: textField.text, ups:0, downs:0, views:0, created:"2014-12-23T22:53:20.963Z")
+            var postObj = Post(id: 0, content: textField.text, ups:0, downs:0, views:0, created:"2014-12-23T22:53:20.963Z", profile:"")
             
             // Submits post to apii
             

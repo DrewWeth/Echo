@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/MasterViewController.swift"
-            timestampString = "441264958.769426"
+            timestampString = "441349797.121655"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "refreshTable()"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,13 +26,207 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/MasterViewController.swift"
-            timestampString = "441268698.089907"
+            timestampString = "441374818.565719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
             endingLineNumber = "241"
             landmarkName = "upvote(_:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Echo/SettingsViewController.swift"
+            timestampString = "441347239.588703"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "SettingsViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Echo.SettingsViewController.__deallocating_deinit"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441350837.568494"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc Echo.SettingsViewController.__ivar_destroyer"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441350837.568725"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Echo/SettingsViewController.swift"
+            timestampString = "441347432.264212"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "SettingsViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Echo.SettingsViewController.profilePic.getter : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UIImage&gt;"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441347432.300742"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Echo.SettingsViewController.profilePic.setter : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UIImage&gt;"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441347432.301001"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Echo.SettingsViewController.profilePic.materializeForSet : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UIImage&gt;"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441347432.301205"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Echo.SettingsViewController.init (Echo.SettingsViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; Echo.SettingsViewController"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441347432.301336"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "140">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Echo.SettingsViewController.init (Echo.SettingsViewController.Type)() -&gt; Echo.SettingsViewController"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441347432.30146"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Echo.SettingsViewController.init (Echo.SettingsViewController.Type)(coder : ObjectiveC.NSCoder) -&gt; Echo.SettingsViewController"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441347432.301597"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "124">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Echo/SettingsViewController.swift"
+            timestampString = "441371866.095834"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Echo.SettingsViewController.(imagePickerController (Echo.SettingsViewController) -&gt; (ObjectiveC.UIImagePickerController, didFinishPickingMediaWithInfo : Swift.Dictionary&lt;ObjectiveC.NSObject, Swift.AnyObject&gt;) -&gt; ()).(closure #1) with unmangled suffix &quot;_promote0&quot;"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441367481.996148"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "2228">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Echo.SettingsViewController.(imagePickerController (Echo.SettingsViewController) -&gt; (ObjectiveC.UIImagePickerController, didFinishPickingMediaWithInfo : Swift.Dictionary&lt;ObjectiveC.NSObject, Swift.AnyObject&gt;) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "Echo"
+                  urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
+                  timestampString = "441367481.99648"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

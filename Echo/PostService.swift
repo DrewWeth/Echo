@@ -46,6 +46,10 @@ class PostService {
         request(settings.registerURL + "?parse_token=" + parse_token, method: settings.registerMethod, callback:callback)
     }
     
+    func postProfileUrl(callback:(AnyObject)->(), device_id:String, auth_key:String, profile_url:String) {
+        var new_url = settings.updateProfileUrl + "?device_id=" + device_id + "&auth_key=" + auth_key + "&profile_url=" + profile_url
+        request( new_url, method: "post", callback:callback)
+    }
     
     func request(url:String, method:String, callback:(AnyObject) -> ()){
         println(url)

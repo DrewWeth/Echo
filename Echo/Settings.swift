@@ -22,4 +22,6 @@ class Settings{
     
     var registerURL = "http://apii.herokuapp.com/devices/register"
     var registerMethod = "post"
+    
+    var updateProfileUrl = "http://apii.herokuapp.com/devices/newprofile"
 }
