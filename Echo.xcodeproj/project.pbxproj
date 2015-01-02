@@ -10,6 +10,8 @@
 		FE02439D1A4BC05700031AEF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE02439C1A4BC05700031AEF /* Device.swift */; };
 		FE0810F21A4D37CF00BC2F09 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0810F11A4D37CF00BC2F09 /* SettingsViewController.swift */; };
 		FE56C11A1A4A5FFB004BFEDA /* CoreLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE56C1191A4A5FFB004BFEDA /* CoreLocationController.swift */; };
+		FE66E9B61A4F5FE20048BE97 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE66E9B51A4F5FE20048BE97 /* SDWebImage.framework */; };
+		FE66E9B81A4F60230048BE97 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE66E9B71A4F60230048BE97 /* ImageIO.framework */; };
 		FE76E6B61A4ABF1F0010850B /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE76E6B51A4ABF1F0010850B /* background.jpg */; };
 		FE76E6B81A4AC58B0010850B /* background2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE76E6B71A4AC58B0010850B /* background2.jpg */; };
 		FE7EC3291A4E91D900D70096 /* AWSiOSSDKv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7EC3281A4E91D900D70096 /* AWSiOSSDKv2.framework */; };
@@ -83,6 +85,8 @@
 		FE02439C1A4BC05700031AEF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		FE0810F11A4D37CF00BC2F09 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FE56C1191A4A5FFB004BFEDA /* CoreLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreLocationController.swift; sourceTree = "<group>"; };
+		FE66E9B51A4F5FE20048BE97 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = ../../Downloads/SDWebImage.framework; sourceTree = "<group>"; };
+		FE66E9B71A4F60230048BE97 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		FE76E6B51A4ABF1F0010850B /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		FE76E6B71A4AC58B0010850B /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background2.jpg; sourceTree = "<group>"; };
 		FE7EC3281A4E91D900D70096 /* AWSiOSSDKv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSiOSSDKv2.framework; path = "../../Downloads/aws-ios-sdk-2.0.13/frameworks/AWSiOSSDKv2.framework"; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE66E9B81A4F60230048BE97 /* ImageIO.framework in Frameworks */,
 				FED55B481A4C87B500045B65 /* libz.dylib in Frameworks */,
 				FED55B4A1A4C87BF00045B65 /* libsqlite3.dylib in Frameworks */,
 				FE7EC3521A4E92F300D70096 /* Bolts.framework in Frameworks */,
@@ -159,6 +164,7 @@
 				FE7EC3531A4E92F300D70096 /* FMDB.framework in Frameworks */,
 				FED55B461A4C87A800045B65 /* SystemConfiguration.framework in Frameworks */,
 				FE7EC3551A4E92F300D70096 /* Mantle.framework in Frameworks */,
+				FE66E9B61A4F5FE20048BE97 /* SDWebImage.framework in Frameworks */,
 				FE7EC3291A4E91D900D70096 /* AWSiOSSDKv2.framework in Frameworks */,
 				FED55B441A4C87A300045B65 /* StoreKit.framework in Frameworks */,
 				FED55B421A4C879B00045B65 /* Security.framework in Frameworks */,
@@ -194,6 +200,8 @@
 		FE9B0EBA1A47E9D6008BA5F5 = {
 			isa = PBXGroup;
 			children = (
+				FE66E9B71A4F60230048BE97 /* ImageIO.framework */,
+				FE66E9B51A4F5FE20048BE97 /* SDWebImage.framework */,
 				FE7EC34A1A4E92F300D70096 /* Bolts.framework */,
 				FE7EC34B1A4E92F300D70096 /* FMDB.framework */,
 				FE7EC34C1A4E92F300D70096 /* GZIP.framework */,
@@ -576,6 +584,7 @@
 					"/Users/zizimaza/Downloads/aws-ios-sdk-2.0.13/frameworks",
 					"/Users/zizimaza/Downloads/aws-ios-sdk-2.0.13/frameworks/extras",
 					"/Users/zizimaza/Downloads/aws-ios-sdk-2.0.13/third-party",
+					/Users/zizimaza/Downloads,
 				);
 				INFOPLIST_FILE = Echo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -602,6 +611,7 @@
 					"/Users/zizimaza/Downloads/aws-ios-sdk-2.0.13/frameworks",
 					"/Users/zizimaza/Downloads/aws-ios-sdk-2.0.13/frameworks/extras",
 					"/Users/zizimaza/Downloads/aws-ios-sdk-2.0.13/third-party",
+					/Users/zizimaza/Downloads,
 				);
 				INFOPLIST_FILE = Echo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

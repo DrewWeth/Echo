@@ -26,19 +26,26 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         var screen = UIScreen.mainScreen().bounds
         var absoluteX = (screen.width / 2.0) - (profileWidth / 2.0)
         var absoluteY:CGFloat = 150.0
-        
+        self.profilePic = UIImage(named: "background.jpg")
         
         if (self.appDelegate.device.data.count > 2){
             // Profile picture
+
             var url = NSURL(string: self.appDelegate.device.data[2] as String)
-            var data = NSData(contentsOfURL: url!)
-            self.profilePic = UIImage(data: data!)
+
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { ()->() in
+                
+                var data = NSData(contentsOfURL: url!)
+                println("Setting's profile picture is downloaded")
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.profilePic = UIImage(data: data!)
+                    self.imageView.image = self.profilePic
+                    println("Settings picture updated")
+                    
+                })
+            })
         }
-        else
-        {
-            self.profilePic = UIImage(named: "background.jpg")
-        }
-        
         
         // Profile picture bounds
         self.imageView = UIImageView(frame: CGRectMake(absoluteX, absoluteY, profileWidth, profileHeight))

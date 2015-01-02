@@ -27,11 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         // Register parse
         Parse.setApplicationId("Q5N1wgUAJKrEbspM7Q2PBv32JbTPt5TQpmstic8D", clientKey: "rUpIZ6rJl3FMe69GqIxNnTK6mMSUlx0AA2OPAej8")
-        var types: UIUserNotificationType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
+        var types: UIUserNotificationType = UIUserNotificationType.Badge & UIUserNotificationType.Alert & UIUserNotificationType.Sound
         var settings = UIUserNotificationSettings(forTypes: types, categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
-        
         
         
 //        self.device = Device()
@@ -47,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         splitViewController.delegate = self
         
         
-        let credProvider = AWSStaticCredentialsProvider(accessKey: "AKIAIZAKROOE6V7SRJHA", secretKey: "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")
+        let credProvider = AWSStaticCredentialsProvider(accessKey: "AKIAITTQESDYY4J5QC5A", secretKey:"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")
         let defaultServiceConfig = AWSServiceConfiguration(region: AWSRegionType.USWest2, credentialsProvider: credProvider)
         AWSServiceManager.defaultServiceManager().setDefaultServiceConfiguration(defaultServiceConfig)
         

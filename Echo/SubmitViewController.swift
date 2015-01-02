@@ -30,16 +30,13 @@ class SubmitViewController :UIViewController {
         
         if (textField.text != ""){
             
-            
             // makes local copy -- just for nice-ity
-            var postObj = Post(id: 0, content: textField.text, ups:0, downs:0, views:0, created:"2014-12-23T22:53:20.963Z", profile:"")
+            var postObj = Post(id: 0, content: textField.text, ups:0, downs:0, views:0, created:"2014-12-23T22:53:20.963Z", profile_url:"")
             
             // Submits post to apii
             
-            
             if (self.appDelegate.getLocationController().currentLocation != nil)
             {
-                
                 self.appDelegate.service.submitPost({
                     (response) in
                     self.addNew(response as NSDictionary)
@@ -50,10 +47,7 @@ class SubmitViewController :UIViewController {
                 dispatch_async(dispatch_get_main_queue()){
                     self.appDelegate.masterController.tableView.reloadData()
                 }
-                
-                
                 navigationController?.popToRootViewControllerAnimated(true)
-                
             }
         }
     }

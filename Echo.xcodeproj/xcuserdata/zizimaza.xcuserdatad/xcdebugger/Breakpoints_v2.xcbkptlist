@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/MasterViewController.swift"
-            timestampString = "441349797.121655"
+            timestampString = "441538140.021025"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "refreshTable()"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/MasterViewController.swift"
-            timestampString = "441374818.565719"
+            timestampString = "441771509.459585"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "upvote(_:)"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
+            landmarkName = "downvote(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -190,11 +190,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/SettingsViewController.swift"
-            timestampString = "441371866.095834"
+            timestampString = "441540454.058875"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "5">
             <Locations>
@@ -227,6 +227,22 @@
                   offsetFromSymbolStart = "104">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Echo/MasterViewController.swift"
+            timestampString = "441416095.849547"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "MasterViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

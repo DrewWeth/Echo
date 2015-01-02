@@ -8,14 +8,17 @@
 
 import UIKit
 
+
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var postsCollection = [Post]()
 
     let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+    
     var is_loading = false
-
+    var endOfFeed = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
@@ -23,8 +26,7 @@ class MasterViewController: UITableViewController {
             self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
         }
     }
-    
-    
+
 
     override func viewDidLoad() {
 
@@ -63,14 +65,11 @@ class MasterViewController: UITableViewController {
         
         self.refreshControl = refreshControl
         
-//        self.postsCollection = [Post(id:1, content:"Just saw the cutest shoes ever", ups:2, downs:1, views: 10, created:"Dec 22, 2014 at 2:15AM"),Post(id:1, content:"Becky is a bitchhh :S", ups:72, downs:4, views: 126, created:"Dec 22, 2014 at 1:15AM"),Post(id:1, content:"Sports are cool kcjls ns dc  jc sj,hbdjn sbdjhbs", ups:304378, downs:-1, views: 304378, created:"Dec 22, 2014 at 2:15AM"),Post(id:1, content:"Music heals <3", ups:440, downs:46, views: 1046, created:"Dec 22, 2014 at 2:15AM")]
     }
     
     func submitTransition(Sender: UIButton!) {
         let submitView:SubmitViewController = SubmitViewController()
-        
         self.presentViewController(submitView, animated: true, completion: nil)
-        
     }
     
     func addPost(post:Post) {
@@ -87,7 +86,7 @@ class MasterViewController: UITableViewController {
         //println("\(currentOffset), \(maximumOffset), \(maximumOffset - currentOffset)")
         
         // Change 10.0 to adjust the distance from bottom
-        if (maximumOffset > UIScreen.mainScreen().bounds.height && maximumOffset - currentOffset < 100.0) {
+        if (maximumOffset > UIScreen.mainScreen().bounds.height && maximumOffset - currentOffset < 200.0 && !endOfFeed) {
             println("Has scrolled far enough to load more posts")
             
             if (self.is_loading == false)
@@ -106,24 +105,23 @@ class MasterViewController: UITableViewController {
     }
     
     func refreshTable(){
-        self.postsCollection = [] // Reset table
 
         if (appDelegate.getLocationController().currentLocation != nil)
         {
             
             //         return of the closure-- idk wtf that means tho
-            var last_string = ""
-            if (self.postsCollection.last != nil){
-                last_string = self.postsCollection.last!.created
+            var first_string = ""
+            if (self.postsCollection.count > 0){
+                first_string = self.postsCollection[0].created
             }
             self.appDelegate.service.getPosts ({
                 (response) in
-                self.loadPosts(response as NSArray)
-                }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), last:last_string)
+                self.loadPosts(response as NSArray, insertToBeginning: true)
+                }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), last:first_string)
         }
         else
         {
-            var error = Post(id:0, content:"GPS isn't working :(", ups:0, downs:0, views:0,  created:"2014-12-23T22:53:20.963Z", profile:"")
+            var error = Post(id:0, content:"GPS isn't working :(", ups:0, downs:0, views:0,  created:"2014-12-23T22:53:20.963Z", profile_url:"")
             self.postsCollection.append(error)
         }
         tableView.reloadData()
@@ -138,8 +136,12 @@ class MasterViewController: UITableViewController {
     
     
     // Takes an array of posts, makes objects of them, and appends them to postsCollections. Then reloads the data table.
-    func loadPosts(posts:NSArray){
+    func loadPosts(posts:NSArray, insertToBeginning:Bool = false){
         println("Number of returned posts: \(posts.count)")
+        if (posts.count == 0){
+            endOfFeed = true
+        }
+        
         if (posts.count > 0){
             for postObj in posts{
                 println(postObj)
@@ -152,8 +154,14 @@ class MasterViewController: UITableViewController {
                 var created = post["created_at"] as String
                 var profile_url = postObj["profile_picture"] as String
                 
-                var postObj = Post(id: id, content: content, ups:ups, downs:downs, views:views, created:created, profile:profile_url as String)
-                postsCollection.append(postObj)
+                var postObj = Post(id: id, content: content, ups:ups, downs:downs, views:views, created:created, profile_url:profile_url)
+                
+                if (!insertToBeginning){
+                    postsCollection.append(postObj)
+                }
+                else{
+                    postsCollection.insert(postObj, atIndex: 0)
+                }
             }
         }
         
@@ -163,6 +171,9 @@ class MasterViewController: UITableViewController {
             self.is_loading = false
         }
     }
+    
+    
+    
     
  
 
@@ -200,16 +211,20 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell:PostCell = tableView.dequeueReusableCellWithIdentifier("Cell") as PostCell
-        
-        
         let post = postsCollection[indexPath.row]
-        cell.setCell(post.content, ups:post.ups, downs:post.downs, rating:post.views, profile_url:post.profile_url)
+        println("Cell: \(post.content)")
         
+        cell.setCell(post.content, ups:post.ups, downs:post.downs, rating:post.views, image:post.image)
+        
+        // Button tags
         cell.upvote.tag = indexPath.row as Int
         cell.downvote.tag = indexPath.row as Int
         
+
         
+
         return cell
     }
 

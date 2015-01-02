@@ -17,45 +17,41 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var rating: UILabel!
     @IBOutlet weak var downvote: UIButton!
     @IBOutlet weak var profile: UIImageView!
+
+    
+
+    required init(coder aDecoder: NSCoder) {
+        super.init()
+        self.profile = UIImageView()
+        self.profile.layer.cornerRadius = self.profile.frame.size.width / 2
+        self.profile.clipsToBounds = true
+        self.profile.layer.borderWidth = 1.0
+        self.profile.layer.borderColor = UIColor.whiteColor().CGColor
+        self.profile.contentMode = .ScaleAspectFill
+
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
-    func setCell(content:String, ups:Int, downs:Int, rating:Int, profile_url:String?){
+    func setCell(content:String, ups:Int, downs:Int, rating:Int, image:UIImage){
+        
         self.content.text = content
         self.upvote.setTitle(String(ups), forState: UIControlState.Normal)
         self.downvote.setTitle(String(downs), forState: UIControlState.Normal)
         self.rating.text = String(rating)
-        
-        if (profile_url != "empty"){
-            var url = NSURL(string: profile_url!)
-            var data = NSData(contentsOfURL: url!)
-            self.profile.image = UIImage(data: data!)
-
-        }
-        else{
-            self.profile.image = UIImage(named: "background.jpg")
-        }
-        
-        
-        // Nasty image stuff
-        self.profile.layer.cornerRadius = self.profile.frame.size.width / 2
-        self.profile.clipsToBounds = true
-        self.profile.layer.borderWidth = 0.5
-        self.profile.layer.borderColor = UIColor.whiteColor().CGColor
-        self.profile.contentMode = .ScaleAspectFill
-        
+        self.profile.image = image
         
         
     }
-    
     
 }
