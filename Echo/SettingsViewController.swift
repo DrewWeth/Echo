@@ -12,7 +12,6 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
 
     var profileWidth:CGFloat = 100.0
     var profileHeight:CGFloat = 100.0
-    var profilePic:UIImage!
     var imageView :UIImageView!
     let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
     var s3Url = "https://s3-us-west-2.amazonaws.com/echofoxtrot/"
@@ -21,52 +20,60 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var ChangeProfile: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Calculations
         var screen = UIScreen.mainScreen().bounds
         var absoluteX = (screen.width / 2.0) - (profileWidth / 2.0)
         var absoluteY:CGFloat = 150.0
-        self.profilePic = UIImage(named: "background.jpg")
         
-        if (self.appDelegate.device.data.count > 2){
-            // Profile picture
-
-            var url = NSURL(string: self.appDelegate.device.data[2] as String)
-
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { ()->() in
-                
-                var data = NSData(contentsOfURL: url!)
-                println("Setting's profile picture is downloaded")
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.profilePic = UIImage(data: data!)
-                    self.imageView.image = self.profilePic
-                    println("Settings picture updated")
-                    
-                })
-            })
-        }
+        
+        var bgY:CGFloat = absoluteY + (profileHeight / 2.0)
+        // Background picture
+        var bgImage = UIImage(named: "background2.jpg")
+        
+        var bgImageBounds = UIImageView(frame:CGRectMake(0, 0, screen.width, bgY ))
+        bgImageBounds.image = bgImage
         
         // Profile picture bounds
         self.imageView = UIImageView(frame: CGRectMake(absoluteX, absoluteY, profileWidth, profileHeight))
-        imageView.image = self.profilePic
+        imageView.image = appDelegate.device.profilePic
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.clipsToBounds = true
         imageView.layer.borderWidth = 3.0
         imageView.layer.borderColor = UIColor.whiteColor().CGColor
         imageView.contentMode = .ScaleAspectFill
         
+        if (self.appDelegate.device.data.count > 2 && !self.appDelegate.device.profilePicDownloaded){
+            // Profile picture
+            println("We have enough data to search for image")
+
+            var url = NSURL(string: self.appDelegate.device.data[2] as String)
+
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { ()->() in
+                println("Downloading image")
+                var data = NSData(contentsOfURL: url!)
+                println("Setting's profile picture is downloaded")
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.appDelegate.device.profilePic = UIImage(data: data!)!
+                    self.imageView.image = self.appDelegate.device.profilePic
+                    self.appDelegate.device.profilePicDownloaded = true
+
+                    println("Settings picture updated")
+                })
+            })
+        }
         
-        // Background picture
-        var bgImage = UIImage(named: "background2.jpg")
+//        var filePath = NSBundle.mainBundle().pathForResource("loading", ofType: "gif")
+//        var gif = NSData(contentsOfFile: filePath!)
+//        var webView = UIWebView(frame: CGRectMake(absoluteX, absoluteY, profileWidth, profileHeight))
+//        webView.loadData(gif, MIMEType: "image/gif", textEncodingName: nil, baseURL: nil)
+//        webView.userInteractionEnabled = false
+//        webView.scalesPageToFit = true
         
-        var bgY:CGFloat = absoluteY + (profileHeight / 2.0)
-        var bgImageBounds = UIImageView(frame:CGRectMake(0, 0, screen.width, bgY ))
-        bgImageBounds.image = bgImage
-        
-        // Layering image bounds
         self.view.addSubview(bgImageBounds)
-        self.view.addSubview(imageView)
+        self.imageView.image = appDelegate.device.profilePic
+        self.view.addSubview(self.imageView)
         
     }
     
@@ -85,8 +92,8 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         println("Picked!!")
         picker.dismissViewControllerAnimated(true, completion: nil)
         var uploadedImage = info[UIImagePickerControllerOriginalImage] as UIImage
-        self.profilePic = uploadedImage
-        self.imageView.image = self.profilePic
+        self.appDelegate.device.profilePic = uploadedImage
+        self.imageView.image = self.appDelegate.device.profilePic
         imagePickerControllerDidCancel(picker)
         var tManager = AWSS3TransferManager.defaultS3TransferManager()
         
@@ -137,10 +144,12 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     func imagePickerControllerDidCancel(picker: UIImagePickerController!)
     {
         println("Imaging picking was canceled.")
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func changeImage(sender: AnyObject) {
         var imagePicker = UIImagePickerController()
+        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
         imagePicker.delegate = self
         self.presentViewController(imagePicker, animated: true, nil)
     }

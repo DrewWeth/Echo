@@ -14,6 +14,7 @@
 		FE66E9B81A4F60230048BE97 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE66E9B71A4F60230048BE97 /* ImageIO.framework */; };
 		FE76E6B61A4ABF1F0010850B /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE76E6B51A4ABF1F0010850B /* background.jpg */; };
 		FE76E6B81A4AC58B0010850B /* background2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE76E6B71A4AC58B0010850B /* background2.jpg */; };
+		FE7765A31A67073600E2783B /* loading.svg in Resources */ = {isa = PBXBuildFile; fileRef = FE7765A21A67073600E2783B /* loading.svg */; };
 		FE7EC3291A4E91D900D70096 /* AWSiOSSDKv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7EC3281A4E91D900D70096 /* AWSiOSSDKv2.framework */; };
 		FE7EC32B1A4E921800D70096 /* AWSCognitoSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7EC32A1A4E921800D70096 /* AWSCognitoSync.framework */; };
 		FE7EC33B1A4E926200D70096 /* autoscaling-2011-01-01.json in Resources */ = {isa = PBXBuildFile; fileRef = FE7EC32C1A4E926200D70096 /* autoscaling-2011-01-01.json */; };
@@ -89,6 +90,7 @@
 		FE66E9B71A4F60230048BE97 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		FE76E6B51A4ABF1F0010850B /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		FE76E6B71A4AC58B0010850B /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background2.jpg; sourceTree = "<group>"; };
+		FE7765A21A67073600E2783B /* loading.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = loading.svg; path = "../../../Downloads/svg-loaders-master/loading.svg"; sourceTree = "<group>"; };
 		FE7EC3281A4E91D900D70096 /* AWSiOSSDKv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSiOSSDKv2.framework; path = "../../Downloads/aws-ios-sdk-2.0.13/frameworks/AWSiOSSDKv2.framework"; sourceTree = "<group>"; };
 		FE7EC32A1A4E921800D70096 /* AWSCognitoSync.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCognitoSync.framework; path = "../../Downloads/aws-ios-sdk-2.0.13/frameworks/extras/AWSCognitoSync.framework"; sourceTree = "<group>"; };
 		FE7EC32C1A4E926200D70096 /* autoscaling-2011-01-01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "autoscaling-2011-01-01.json"; path = "../../../Downloads/aws-ios-sdk-2.0.13/service-definitions/autoscaling-2011-01-01.json"; sourceTree = "<group>"; };
@@ -197,6 +199,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE28B56D1A5BA39C00988E8D /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				FE7765A21A67073600E2783B /* loading.svg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		FE9B0EBA1A47E9D6008BA5F5 = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +252,7 @@
 		FE9B0EC51A47E9D6008BA5F5 /* Echo */ = {
 			isa = PBXGroup;
 			children = (
+				FE28B56D1A5BA39C00988E8D /* Images */,
 				FECADAD81A4EC5FB0089E0C5 /* PostCell.swift */,
 				FE9B0EC81A47E9D6008BA5F5 /* AppDelegate.swift */,
 				FE7EC32C1A4E926200D70096 /* autoscaling-2011-01-01.json */,
@@ -400,6 +411,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE7765A31A67073600E2783B /* loading.svg in Resources */,
 				FEB7B5431A4A7AA6001393BA /* starhill.gpx in Resources */,
 				FE7EC3471A4E926200D70096 /* sns-2010-03-31.json in Resources */,
 				FE7EC33E1A4E926200D70096 /* dynamodb-2012-08-10.json in Resources */,

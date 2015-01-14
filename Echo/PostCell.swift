@@ -18,18 +18,16 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var downvote: UIButton!
     @IBOutlet weak var profile: UIImageView!
 
-    
-
-    required init(coder aDecoder: NSCoder) {
+    override init() {
         super.init()
         self.profile = UIImageView()
-        self.profile.layer.cornerRadius = self.profile.frame.size.width / 2
-        self.profile.clipsToBounds = true
-        self.profile.layer.borderWidth = 1.0
-        self.profile.layer.borderColor = UIColor.whiteColor().CGColor
-        self.profile.contentMode = .ScaleAspectFill
-
+        
     }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,14 +41,51 @@ class PostCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setCell(content:String, ups:Int, downs:Int, rating:Int, image:UIImage){
-        
+    func setCell(content:String, ups:Int, downs:Int, rating:Int, image:UIImage, action:Int){
         self.content.text = content
+        
         self.upvote.setTitle(String(ups), forState: UIControlState.Normal)
         self.downvote.setTitle(String(downs), forState: UIControlState.Normal)
+        
         self.rating.text = String(rating)
         self.profile.image = image
         
+        
+        self.profile.layer.cornerRadius = self.profile.frame.size.width / 2
+        self.profile.clipsToBounds = true
+        self.profile.layer.borderWidth = 1.0
+        self.profile.layer.borderColor = UIColor.whiteColor().CGColor
+        self.profile.contentMode = .ScaleAspectFill
+        
+        if (action == 1){
+            self.upvote.setTitle(String(ups), forState: UIControlState.Highlighted)
+            self.upvote.enabled = false
+            
+            self.downvote.setTitle(String(downs), forState: UIControlState.Selected)
+            self.downvote.enabled = true
+
+        }
+        else if (action == 2){
+            self.upvote.setTitle(String(ups), forState: UIControlState.Selected)
+            self.upvote.enabled = true
+            
+            self.downvote.setTitle(String(downs), forState: UIControlState.Highlighted)
+            self.downvote.enabled = false
+
+            
+        }
+        else if (action == 0) {
+            self.upvote.setTitle(String(ups), forState: UIControlState.Normal)
+            self.upvote.enabled = true
+            
+            self.downvote.setTitle(String(downs), forState: UIControlState.Normal)
+            self.downvote.enabled = true
+            
+
+        }
+        else{
+            println("Fat error in setting cell")
+        }
         
     }
     

@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         self.coreLocationController = CoreLocationController()
         self.service = PostService()
         
-        
+//        UIApplication.sharedApplication().keyWindow?.tintColor = UIColor.orangeColor()
+
         // Register parse
         Parse.setApplicationId("Q5N1wgUAJKrEbspM7Q2PBv32JbTPt5TQpmstic8D", clientKey: "rUpIZ6rJl3FMe69GqIxNnTK6mMSUlx0AA2OPAej8")
         var types: UIUserNotificationType = UIUserNotificationType.Badge & UIUserNotificationType.Alert & UIUserNotificationType.Sound
@@ -62,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 //            return nil
 //            
 //        })
-        
+//      
         return true
     }
 

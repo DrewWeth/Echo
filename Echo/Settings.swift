@@ -9,19 +9,24 @@
 import Foundation
 
 class Settings{
-    var PostsURL = "http://apii.herokuapp.com/posts/nearby?latitude=38.5016981&longitude=-90.3991102"
+    var baseUrl:String = "http://104.236.81.195"
+    
+    var PostsURL = "/posts/nearby?"
     var PostsMethod = "get"
     
-    var submitURL = "http://apii.herokuapp.com/posts/submit?"
+    var submitURL = "/posts/submit?"
     var submitMethod = "post"
     
     // Voting API 
-    var upVoteURL = "http://apii.herokuapp.com/posts/up/"
-    var downVoteURL = "http://apii.herokuapp.com/posts/down/"
+    var upVoteURL = "/posts/up?"
+    var downVoteURL = "/posts/down?"
     var voteMethod = "post"
     
-    var registerURL = "http://apii.herokuapp.com/devices/register"
+    var registerURL = "/devices/register?"
     var registerMethod = "post"
     
-    var updateProfileUrl = "http://apii.herokuapp.com/devices/newprofile"
+    var updateProfileUrl = "/devices/newprofile?"
+    
+    init(){
+    }
 }

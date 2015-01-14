@@ -18,10 +18,16 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var viewsText: UILabel!
     @IBOutlet weak var downsText: UILabel!
     
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var radiusLabel: UILabel!
+    
+    @IBOutlet weak var postImage: UIImageView!
+    
+    
     let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
     
     
-    var detailItem: Post? {
+    var detailItem: Post! {
         didSet {
             // Update the view.
             self.configureView()
@@ -36,19 +42,8 @@ class DetailViewController: UIViewController {
                 label.sizeToFit()
                 label.numberOfLines = 0
             }
+            
             if let label = self.detailCreatedLabel {
-//                let now = NSDate()
-//                
-//                let toArray = detail.created.componentsSeparatedByString(":")
-//                let backToString = join("", toArray)
-//                
-//                let dateFormatter = NSDateFormatter()
-//                dateFormatter.dateFormat = "yyyy-MM-dd'T'HHmmssZZ"
-//                let then = dateFormatter.dateFromString(detail.created) as NSDate!
-//                println(then)
-//                
-//                let elapsedTime = NSDate().timeIntervalSinceDate(then)
-//                label.text = String(NSInteger(elapsedTime))
                 label.text = detail.created
             }
             
@@ -61,14 +56,27 @@ class DetailViewController: UIViewController {
             if let text = self.viewsText {
                 text.text = String(detail.views) + " views"
             }
+            
+            if let text = self.radiusLabel {
+                text.text = String(format: "%.2f", detail.radius) as String
+            }
+            
+            if let text = self.cityLabel {
+                text.text = String(detail.city)
+            }
+            
+            if let image = self.postImage{
+                if detail.postPic != nil{
+                    image.image = detail.postPic
+                }
+                
+            }
         }
     }
     
     func addNew(post:NSDictionary)
     {
         println(post)
-        
-        
     }
     
     
@@ -76,29 +84,63 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func upvote(sender: AnyObject) {
-        self.appDelegate.service.submitVote({
-            (response) in
-            self.addNew(response as NSDictionary)
-            }, voteType: 1, postID: self.detailItem!.id)
-        self.detailItem?.ups += 1
-        self.upsText.text = String(self.detailItem!.ups)
         
-        dispatch_async(dispatch_get_main_queue()){
-            self.appDelegate.masterController.tableView.reloadData()
+        var post = self.detailItem!
+        
+        if (post.relevancy.actionId != 1){ // If not already upvoted
+            if (post.relevancy.actionId == 2){ // If was already downvoted
+                post.downs -= 1
+            }
+            post.relevancy.actionId = 1
+            post.ups += 1
+        
+        
+            self.appDelegate.service.submitVote({
+                (response) in
+                self.addNew(response as NSDictionary)
+                }, voteType: 1, postID: self.detailItem!.id, deviceId: appDelegate.device.data[0] as String, authKey: appDelegate.device.data[1] as String)
+
+            self.detailItem!.downs = post.downs
+            self.detailItem!.ups = post.ups
+            
+            self.upsText.text = String(self.detailItem!.ups)
+            self.downsText.text = String(self.detailItem!.downs)
+            
+            dispatch_async(dispatch_get_main_queue()){
+                self.appDelegate.masterController.tableView.reloadData()
+            }
         }
         
     }
     
     @IBAction func downvote(sender: AnyObject) {
-        self.appDelegate.service.submitVote({
-            (response) in
-            self.addNew(response as NSDictionary)
-            }, voteType: 2, postID: self.detailItem!.id)
-        self.detailItem!.downs += 1
-        self.downsText.text = String(self.detailItem!.downs)
-     
-        dispatch_async(dispatch_get_main_queue()){
-            self.appDelegate.masterController.tableView.reloadData()
+        
+        var post = self.detailItem!
+        
+        if (post.relevancy.actionId != 2){ // If not already downvoted
+            if (post.relevancy.actionId == 1){ // If already upvoted
+                post.ups -= 1
+            }
+            
+            post.relevancy.actionId = 2
+            post.downs += 1
+            
+            
+            self.appDelegate.service.submitVote({
+                (response) in
+                self.addNew(response as NSDictionary)
+                }, voteType: 2, postID: self.detailItem!.id, deviceId: appDelegate.device.data[0] as String, authKey: appDelegate.device.data[1] as String)
+
+            self.detailItem!.downs = post.downs
+            self.detailItem!.ups = post.ups
+            
+            self.upsText.text = String(self.detailItem!.ups)
+            self.downsText.text = String(self.detailItem!.downs)
+
+         
+            dispatch_async(dispatch_get_main_queue()){
+                self.appDelegate.masterController.tableView.reloadData()
+            }
         }
     }
 

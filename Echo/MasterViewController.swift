@@ -27,7 +27,6 @@ class MasterViewController: UITableViewController {
         }
     }
 
-
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -65,6 +64,7 @@ class MasterViewController: UITableViewController {
         
         self.refreshControl = refreshControl
         
+    
     }
     
     func submitTransition(Sender: UIButton!) {
@@ -96,8 +96,8 @@ class MasterViewController: UITableViewController {
                 {
                     self.appDelegate.service.getPosts ({
                         (response) in
-                        self.loadPosts(response as NSArray)
-                        }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), last: self.postsCollection.last!.created)
+                        self.loadPosts(response as NSDictionary)
+                        }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), device_id: self.appDelegate.device.data[0] as String, last: self.postsCollection.last!.created)
                 }
             }
         }
@@ -108,20 +108,27 @@ class MasterViewController: UITableViewController {
 
         if (appDelegate.getLocationController().currentLocation != nil)
         {
-            
-            //         return of the closure-- idk wtf that means tho
-            var first_string = ""
+            var firstString = ""
             if (self.postsCollection.count > 0){
-                first_string = self.postsCollection[0].created
+                firstString = self.postsCollection[0].created
             }
-            self.appDelegate.service.getPosts ({
-                (response) in
-                self.loadPosts(response as NSArray, insertToBeginning: true)
-                }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), last:first_string)
+            
+            if (self.appDelegate.device.data.count != 0){
+                var id = String(self.postsCollection.first!.id)
+                
+                self.appDelegate.service.getPosts({
+                    (response) in
+                    self.loadPosts(response as NSDictionary, insertToBeginning: true)
+                    }, latitude: appDelegate.getLocationController().getCurrentLatitude(), longitude: appDelegate.getLocationController().getCurrentLongitude(), device_id: self.appDelegate.device.data[0] as String, last:"", since: id)
+                
+                
+                
+            }
+
         }
         else
         {
-            var error = Post(id:0, content:"GPS isn't working :(", ups:0, downs:0, views:0,  created:"2014-12-23T22:53:20.963Z", profile_url:"")
+            var error = Post(id:0, content:"GPS isn't working :(", ups:0, downs:0, views:0,  created:"2014-12-23T22:53:20.963Z", profileUrl:"", city:"temp", radius: 3902.0)
             self.postsCollection.append(error)
         }
         tableView.reloadData()
@@ -136,32 +143,56 @@ class MasterViewController: UITableViewController {
     
     
     // Takes an array of posts, makes objects of them, and appends them to postsCollections. Then reloads the data table.
-    func loadPosts(posts:NSArray, insertToBeginning:Bool = false){
-        println("Number of returned posts: \(posts.count)")
+    func loadPosts(posts:NSDictionary, insertToBeginning:Bool = false, resetData:Bool = false){
+        if (resetData){
+            self.postsCollection = []
+        }
         if (posts.count == 0){
             endOfFeed = true
         }
+        else {
+            var beginningArray = [Post]()
         
-        if (posts.count > 0){
-            for postObj in posts{
-                println(postObj)
-                var post = postObj["post"] as NSDictionary
+            for dataObj in posts["data"] as NSArray{
+                var post = dataObj["post"] as NSDictionary
+                
+                println(dataObj)
+                
                 var id = post["id"] as Int
                 var content = post["content"] as String
                 var ups = post["ups"] as Int
                 var downs = post["downs"] as Int
                 var views = post["views"] as Int
+                var radius = post["radius"] as Float
+                var city = post["city"] as String
                 var created = post["created_at"] as String
-                var profile_url = postObj["profile_picture"] as String
+                var profile_url = dataObj["poster"] as? String
+                println("profile_url:::: \(profile_url)")
+                var postUrl = post["post_url"] as? String
                 
-                var postObj = Post(id: id, content: content, ups:ups, downs:downs, views:views, created:created, profile_url:profile_url)
+                var newPost = Post(id: id, content: content, ups:ups, downs:downs, views:views, created:created, profileUrl:profile_url, city:city, radius:radius, postUrl:postUrl)
+
+                var relevancy = dataObj["has_seen"] as? NSDictionary
+                
+                if (relevancy != nil){
+                    var relevantPostId = relevancy!["post_id"] as Int
+                    var relevantActionId = relevancy!["action_id"] as Int
+                    
+                    newPost.addRelevancy(relevantPostId, actionId: relevantActionId)
+                }
+                
+                
                 
                 if (!insertToBeginning){
-                    postsCollection.append(postObj)
+                    postsCollection.append(newPost)
                 }
-                else{
-                    postsCollection.insert(postObj, atIndex: 0)
+                else {
+                    beginningArray.append(newPost)
                 }
+            }
+            
+            if (insertToBeginning){
+                self.postsCollection = beginningArray + self.postsCollection
             }
         }
         
@@ -173,9 +204,6 @@ class MasterViewController: UITableViewController {
     }
     
     
-    
-    
- 
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -197,11 +225,8 @@ class MasterViewController: UITableViewController {
         }
         
     }
-
-    
     
     // MARK: - Table View
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -213,18 +238,15 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell:PostCell = tableView.dequeueReusableCellWithIdentifier("Cell") as PostCell
-        let post = postsCollection[indexPath.row]
+        let post = postsCollection[indexPath.row] as Post
         println("Cell: \(post.content)")
         
-        cell.setCell(post.content, ups:post.ups, downs:post.downs, rating:post.views, image:post.image)
+        cell.setCell(post.content, ups:post.ups, downs:post.downs, rating:post.views, image:post.profilePic, action: post.relevancy.actionId)
         
         // Button tags
         cell.upvote.tag = indexPath.row as Int
         cell.downvote.tag = indexPath.row as Int
         
-
-        
-
         return cell
     }
 
@@ -245,28 +267,49 @@ class MasterViewController: UITableViewController {
     
     @IBAction func upvote(sender: AnyObject) {
         
-        self.appDelegate.service.submitVote({
-            (response) in
-            self.addNew(response as NSDictionary)
-            }, voteType: 1, postID: self.postsCollection[sender.tag].id)
-    
+        var post = self.postsCollection[sender.tag]
         
-        self.postsCollection[sender.tag].ups += 1
-        var paths = NSIndexPath(forRow:sender.tag, inSection: 0)
-        self.tableView.reloadRowsAtIndexPaths([paths], withRowAnimation: .Fade)
+        if (post.relevancy.actionId != 1){ // If not already upvoted
+            if (post.relevancy.actionId == 2){ // If was already downvoted
+                post.downs -= 1
+            }
+            post.relevancy.actionId = 1
+            post.ups += 1
+            
+            var paths = NSIndexPath(forRow:sender.tag, inSection: 0)
+            self.tableView.reloadRowsAtIndexPaths([paths], withRowAnimation: .Fade)
+            
+            self.appDelegate.service.submitVote({
+                (response) in
+                self.addNew(response as NSDictionary)
+                }, voteType: 1, postID: self.postsCollection[sender.tag].id, deviceId: appDelegate.device.data[0] as String, authKey:appDelegate.device.data[1] as String)
+        
+            
+        }
     }
     
     @IBAction func downvote(sender: AnyObject) {
         
-        self.appDelegate.service.submitVote({
-            (response) in
-            self.addNew(response as NSDictionary)
-            }, voteType: 2, postID: self.postsCollection[sender.tag].id)
+        var post = self.postsCollection[sender.tag]
         
-        
-        self.postsCollection[sender.tag].downs += 1
-        var paths = NSIndexPath(forRow:sender.tag, inSection: 0)
-        self.tableView.reloadRowsAtIndexPaths([paths], withRowAnimation: .Fade)
+        if (post.relevancy.actionId != 2){ // If not already downvoted
+            if (post.relevancy.actionId == 1){ // If already upvoted
+                post.ups -= 1
+            }
+            
+            post.relevancy.actionId = 2
+            post.downs += 1
+            
+            var paths = NSIndexPath(forRow:sender.tag, inSection: 0)
+            self.tableView.reloadRowsAtIndexPaths([paths], withRowAnimation: .Fade)
+            
+            self.appDelegate.service.submitVote({
+                (response) in
+                self.addNew(response as NSDictionary)
+                }, voteType: 2, postID: self.postsCollection[sender.tag].id, deviceId: appDelegate.device.data[0] as String, authKey: appDelegate.device.data[1] as String)
+            
+            
+        }
     }
 
 

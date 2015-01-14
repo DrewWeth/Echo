@@ -31,11 +31,12 @@ class CoreLocationController : NSObject, CLLocationManagerDelegate{
     
     func getInitPosts(){
         println("Getting posts")
-        self.appDelegate.service.getPosts ({
-            (response) in
-            self.appDelegate.masterController.loadPosts(response as NSArray)
-            }, latitude: self.getCurrentLatitude(), longitude: self.getCurrentLongitude(), last:"")
-
+        if (self.appDelegate.device.data.count != 0){
+            self.appDelegate.service.getPosts ({
+                (response) in
+                self.appDelegate.masterController.loadPosts(response as NSDictionary)
+                }, latitude: self.getCurrentLatitude(), longitude: self.getCurrentLongitude(), device_id: self.appDelegate.device.data[0] as String, last:"")
+        }
     }
     
     func getCurrentLatitude() -> String{
