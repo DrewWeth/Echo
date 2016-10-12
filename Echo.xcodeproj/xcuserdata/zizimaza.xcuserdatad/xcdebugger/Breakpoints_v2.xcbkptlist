@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/MasterViewController.swift"
-            timestampString = "442782086.361249"
+            timestampString = "444452787.685285"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "refreshTable()"
             landmarkType = "5">
          </BreakpointContent>
@@ -40,6 +40,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "Echo.SettingsViewController.__deallocating_deinit"
                   moduleName = "Echo"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
                   timestampString = "441350837.568494"
                   startingColumnNumber = "9223372036854775807"
@@ -54,6 +55,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "@objc Echo.SettingsViewController.__ivar_destroyer"
                   moduleName = "Echo"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zizimaza/Desktop/Echo/Echo/SettingsViewController.swift"
                   timestampString = "441350837.568725"
                   startingColumnNumber = "9223372036854775807"
@@ -88,13 +90,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/MasterViewController.swift"
-            timestampString = "442809045.509425"
+            timestampString = "444452787.685285"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "MasterViewController"
-            landmarkType = "3">
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "numberOfSectionsInTableView(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -120,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/DetailViewController.swift"
-            timestampString = "442809627.726631"
+            timestampString = "443050254.664796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "downvote(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/SubmitViewController.swift"
-            timestampString = "442781143.545406"
+            timestampString = "444452894.425456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "uploadImage(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -168,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Echo/MasterViewController.swift"
-            timestampString = "442782109.534284"
+            timestampString = "444452787.685285"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "refreshTable()"
             landmarkType = "5">
          </BreakpointContent>
@@ -190,6 +192,22 @@
             startingLineNumber = "99"
             endingLineNumber = "99"
             landmarkName = "init(id:content:ups:downs:views:created:profileUrl:address:city:radius:constraint:postUrl:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Echo/MasterViewController.swift"
+            timestampString = "444452787.685285"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "numberOfSectionsInTableView(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

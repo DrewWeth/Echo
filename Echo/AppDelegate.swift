@@ -19,10 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var service:PostService!
     var device:Device!
     var masterController:MasterViewController!
+    var loadingModalDisplayed:Bool = false
+
+    
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.coreLocationController = CoreLocationController()
-        self.service = PostService()
+        
         
 //        UIApplication.sharedApplication().keyWindow?.tintColor = UIColor.orangeColor()
 
@@ -33,18 +35,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
+        self.coreLocationController = CoreLocationController()
+        self.service = PostService()
+        
         
 //        self.device = Device()
         self.device = Device(device_token_from_parse: PFInstallation.currentInstallation().objectId)
         println("device count \(self.device.data.count)")
 
-        
-        
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
+        
+        
         
         
         let credProvider = AWSStaticCredentialsProvider(accessKey: "AKIAITTQESDYY4J5QC5A", secretKey:"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")
@@ -66,6 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 //      
         return true
     }
+    
+    
+
 
     func application(application:UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken:NSData) {
     
@@ -83,7 +91,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
     }
     
-    
+//    func displayLoadingModal(content:String) {
+//        if self.loadingModalDisplayed == false {
+//            println("content is \(content)")
+//            self.messagedefine!.text = content
+//            if self.messagedefine == nil && UIApplication.sharedApplication().keyWindow != nil {
+//                UIApplication.sharedApplication().keyWindow?.addSubview(self.messagedefine!)
+//                println("Adding subview here")
+//            }
+//            else if UIApplication.sharedApplication().keyWindow != nil {
+//                UIApplication.sharedApplication().keyWindow?.bringSubviewToFront(self.messagedefine!)
+//                println("Bringing subview to front here")
+//            }
+//            self.loadingModalDisplayed = true
+//        }
+//        
+//    }
+//    
+//    func removeLoadingModal(){
+//        if self.loadingModalDisplayed == true{
+//            UIApplication.sharedApplication().keyWindow?.sendSubviewToBack(self.messagedefine!);
+//            self.loadingModalDisplayed = false
+//        }
+//    }
+//    
     func randomStringWithLength (len : Int) -> NSString {
         
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

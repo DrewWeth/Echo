@@ -27,6 +27,8 @@ class CoreLocationController : NSObject, CLLocationManagerDelegate{
         self.locationManager.startUpdatingLocation() // why wont this work
         self.initLocation = true
 //        self.getInitPosts()
+
+
     }
     
     func getInitPosts(){
@@ -34,6 +36,7 @@ class CoreLocationController : NSObject, CLLocationManagerDelegate{
         if (self.appDelegate.device.data.count != 0){
             self.appDelegate.service.getPosts ({
                 (response) in
+
                 self.appDelegate.masterController.loadPosts(response as NSDictionary)
                 }, latitude: self.getCurrentLatitude(), longitude: self.getCurrentLongitude(), device_id: self.appDelegate.device.data[0] as String, last:"")
         }

@@ -17,7 +17,7 @@ class Device : NSObject {
     var profilePicDownloaded:Bool
     
     init(device_token_from_parse:String){
-        self.profilePic = UIImage(named:"")!
+        self.profilePic = UIImage(named:"background.jpg")!
         self.data = NSMutableArray()
         self.profilePicDownloaded = false
         // DEVELOPMENT: Reset Mylist.plist

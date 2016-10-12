@@ -10,16 +10,17 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var detailCreatedLabel: UILabel!
+    @IBOutlet weak var contentdefine: UIdefine!
+    @IBOutlet weak var detailCreateddefine: UIdefine!
     
+    @IBOutlet weak var downsButton: UIButton!
     
-    @IBOutlet weak var upsText: UILabel!
-    @IBOutlet weak var viewsText: UILabel!
-    @IBOutlet weak var downsText: UILabel!
+    @IBOutlet weak var upsButton: UIButton!
     
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var radiusLabel: UILabel!
+    @IBOutlet weak var viewsText: UIdefine!
+    
+    @IBOutlet weak var citydefine: UIdefine!
+    @IBOutlet weak var radiusdefine: UIdefine!
     
     @IBOutlet weak var postImage: UIImageView!
     
@@ -37,31 +38,31 @@ class DetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let detail: Post = self.detailItem {
-            if let label = self.contentLabel {
-                label.text = detail.content
-                label.sizeToFit()
-                label.numberOfLines = 0
+            if let define = self.contentdefine {
+                define.text = detail.content
+                define.sizeToFit()
+                define.numberOfLines = 0
             }
             
-            if let label = self.detailCreatedLabel {
-                label.text = detail.created
+            if let define = self.detailCreateddefine {
+                define.text = detail.created
             }
             
-            if let text = self.upsText {
-                text.text = String(detail.ups) + " ups"
+            if let text = self.upsButton {
+                text.setTitle(String(detail.ups), forState: UIControlState.Normal)
             }
-            if let text = self.downsText {
-                text.text = String(detail.downs) + " downs"
+            if let text = self.downsButton {
+                text.setTitle(String(detail.downs), forState: UIControlState.Normal)
             }
             if let text = self.viewsText {
-                text.text = String(detail.views) + " views"
+                text.text = String(detail.views)
             }
             
-            if let text = self.radiusLabel {
+            if let text = self.radiusdefine {
                 text.text = String(format: "%.2f", detail.radius) as String
             }
             
-            if let text = self.cityLabel {
+            if let text = self.citydefine {
                 text.text = String(detail.city)
             }
             
@@ -103,8 +104,8 @@ class DetailViewController: UIViewController {
             self.detailItem!.downs = post.downs
             self.detailItem!.ups = post.ups
             
-            self.upsText.text = String(self.detailItem!.ups)
-            self.downsText.text = String(self.detailItem!.downs)
+            self.upsButton.setTitle(String(detailItem.ups), forState: UIControlState.Normal)
+            self.downsButton.setTitle(String(detailItem.downs), forState: UIControlState.Normal)
             
             dispatch_async(dispatch_get_main_queue()){
                 self.appDelegate.masterController.tableView.reloadData()
@@ -112,6 +113,11 @@ class DetailViewController: UIViewController {
         }
         
     }
+    
+    
+    @IBAction func reportPost(sender: AnyObject) {
+    }
+    
     
     @IBAction func downvote(sender: AnyObject) {
         
@@ -134,9 +140,11 @@ class DetailViewController: UIViewController {
             self.detailItem!.downs = post.downs
             self.detailItem!.ups = post.ups
             
-            self.upsText.text = String(self.detailItem!.ups)
-            self.downsText.text = String(self.detailItem!.downs)
-
+            
+            
+            self.upsButton.setTitle(String(detailItem.ups), forState: UIControlState.Normal)
+            self.downsButton.setTitle(String(detailItem.downs), forState: UIControlState.Normal)
+            
          
             dispatch_async(dispatch_get_main_queue()){
                 self.appDelegate.masterController.tableView.reloadData()

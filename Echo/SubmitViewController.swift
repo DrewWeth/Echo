@@ -47,17 +47,16 @@ class SubmitViewController :UIViewController, UIImagePickerControllerDelegate, U
             
             if (self.appDelegate.getLocationController().currentLocation != nil)
             {
+                println("current loc not nil")
                 self.appDelegate.service.submitPost({
                     (response) in
                     self.addNew(response as NSDictionary)
-                    self.navigationController?.popToRootViewControllerAnimated(true)
                     }, content:textField.text, latitude: self.appDelegate.getLocationController().getCurrentLatitude(), longitude: self.appDelegate.getLocationController().getCurrentLongitude(), device_id: self.appDelegate.device.data[0] as String, auth_key: self.appDelegate.device.data[1] as String)
                 
             }
+         
         }
-        else{
-            navigationController?.popToRootViewControllerAnimated(true)
-        }
+        navigationController?.popToRootViewControllerAnimated(true)
         
         
     }
@@ -103,7 +102,11 @@ class SubmitViewController :UIViewController, UIImagePickerControllerDelegate, U
     
     
     func uploadPicture(uploadImage:UIImage, content:String){
+        var fixedImaged = UIImage(CGImage: uploadedImage.CGImage, scale: uploadedImage.scale, orientation: uploadedImage.imageOrientation)
+        uploadedImage = fixedImaged
+        
         var tManager = AWSS3TransferManager.defaultS3TransferManager()
+        
         
         
         // Prep image

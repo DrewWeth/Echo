@@ -12,9 +12,9 @@ class PostCell: UITableViewCell {
 
 
     var post_id:Int!
-    @IBOutlet weak var content: UILabel!
+    @IBOutlet weak var content: UIdefine!
     @IBOutlet weak var upvote: UIButton!
-    @IBOutlet weak var rating: UILabel!
+    @IBOutlet weak var rating: UIdefine!
     @IBOutlet weak var downvote: UIButton!
     @IBOutlet weak var profile: UIImageView!
 

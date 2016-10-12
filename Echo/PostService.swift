@@ -29,6 +29,8 @@ class PostService {
         request(url_string, method: settings.PostsMethod, callback: callback)
     }
     
+    
+    
     func submitPost(callback:(AnyObject) -> (), content:String, latitude:String, longitude:String, device_id:String, auth_key:String, postUrl:String = "") {
         var new_url = settings.baseUrl + settings.submitURL + "&content=" + content.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "&latitude=" + latitude + "&longitude=" + longitude + "&device_id=" + device_id + "&auth_key=" + auth_key + "&post_url=" + postUrl
         println(new_url)
@@ -73,3 +75,16 @@ class PostService {
         task.resume()
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

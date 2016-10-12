@@ -56,7 +56,7 @@ typedef enum BFIncludeStatusBarInSize {
 @property (nonatomic, weak) id<BFAppLinkReturnToRefererViewDelegate> delegate;
 
 /*!
- The color of the text label and close button.
+ The color of the text define and close button.
  */
 @property (nonatomic, strong) UIColor *textColor;
 

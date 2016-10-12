@@ -150,17 +150,17 @@ typedef NS_OPTIONS(NSInteger, PFLogInFields) {
 @property (nonatomic, strong, readonly) UIButton *dismissButton;
 
 /*!
- @abstract The facebook/twitter login label.
+ @abstract The facebook/twitter login define.
 
  @deprecated This property is deprecated and will always be nil.
  */
-@property (nonatomic, strong, readonly) UILabel *externalLogInLabel __attribute__(PARSE_UI_DEPRECATED("This property is deprecated and will always be nil."));
+@property (nonatomic, strong, readonly) UIdefine *externalLogIndefine __attribute__(PARSE_UI_DEPRECATED("This property is deprecated and will always be nil."));
 
 /*!
- @abstract The sign up label.
+ @abstract The sign up define.
 
  @deprecated This property is deprecated and will always be nil.
  */
-@property (nonatomic, strong, readonly) UILabel *signUpLabel __attribute__(PARSE_UI_DEPRECATED("This property is deprecated and will always be nil."));
+@property (nonatomic, strong, readonly) UIdefine *signUpdefine __attribute__(PARSE_UI_DEPRECATED("This property is deprecated and will always be nil."));
 
 @end

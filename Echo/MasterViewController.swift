@@ -18,6 +18,7 @@ class MasterViewController: UITableViewController {
     
     var is_loading = false
     var endOfFeed = false
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,7 +32,10 @@ class MasterViewController: UITableViewController {
 
         super.viewDidLoad()
 
+        
         appDelegate.masterController = self
+
+        
         var bgView = UIImageView(image: UIImage(named:"background.jpg"))
         bgView.contentMode = .ScaleAspectFill
         
@@ -64,7 +68,6 @@ class MasterViewController: UITableViewController {
         
         self.refreshControl = refreshControl
         
-    
     }
     
     func submitTransition(Sender: UIButton!) {
@@ -115,6 +118,8 @@ class MasterViewController: UITableViewController {
             
             if (self.appDelegate.device.data.count != 0){
                 var id = String(self.postsCollection.first!.id)
+                
+                self.appDelegate.service.getPosts(<#callback: (AnyObject) -> ()##(AnyObject) -> ()#>, latitude: <#String#>, longitude: <#String#>, device_id: <#String#>, last: <#String#>, since: <#String#>)
                 
                 self.appDelegate.service.getPosts({
                     (response) in
@@ -180,8 +185,7 @@ class MasterViewController: UITableViewController {
                     
                     newPost.addRelevancy(relevantPostId, actionId: relevantActionId)
                 }
-                
-                
+                                
                 
                 if (!insertToBeginning){
                     postsCollection.append(newPost)
@@ -194,6 +198,7 @@ class MasterViewController: UITableViewController {
             if (insertToBeginning){
                 self.postsCollection = beginningArray + self.postsCollection
             }
+            
         }
         
         // we could be inside a closure, possible to not be in main thread.
@@ -229,10 +234,33 @@ class MasterViewController: UITableViewController {
     // MARK: - Table View
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
+
+//        if self.postsCollection.count > 0 {
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+            
+//        }
+//        else {
+//            var messagedefine = UIdefine(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
+//            
+//            messagedefine.text = "No data is currently available. Please pull down to refresh."
+//            messagedefine.textColor = UIColor.blackColor();
+//            messagedefine.numberOfLines = 0;
+//            messagedefine.textAlignment = NSTextAlignment.Center;
+//            messagedefine.font = UIFont(name: "Palatino-Italic", size:20)
+//            
+//            messagedefine.sizeToFit()
+//            
+//            self.tableView.backgroundView = messagedefine;
+//            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+//        }
+
+        return 0;
+
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postsCollection.count
+
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -246,7 +274,7 @@ class MasterViewController: UITableViewController {
         // Button tags
         cell.upvote.tag = indexPath.row as Int
         cell.downvote.tag = indexPath.row as Int
-        
+    
         return cell
     }
 

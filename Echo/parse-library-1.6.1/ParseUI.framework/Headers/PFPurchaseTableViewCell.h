@@ -51,9 +51,9 @@ typedef NS_ENUM(uint8_t, PFPurchaseTableViewCellState) {
 @property (nonatomic, assign) PFPurchaseTableViewCellState state;
 
 /*!
- @abstract Label where price of the product is displayed.
+ @abstract define where price of the product is displayed.
  */
-@property (nonatomic, strong, readonly) UILabel *priceLabel;
+@property (nonatomic, strong, readonly) UIdefine *pricedefine;
 
 /*!
  @abstract Progress view that is shown, when the product is downloading.

@@ -73,7 +73,7 @@
 @property (nonatomic, copy) NSString *parseClassName;
 
 /*!
- @abstract The key to use to display for the cell text label.
+ @abstract The key to use to display for the cell text define.
 
  @discussion This won't apply if you override <tableView:cellForRowAtIndexPath:object:>
  */
